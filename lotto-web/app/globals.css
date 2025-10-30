@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+
+  /* colors  */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: #D00000;
+  --color-thunderbird-900: #900C0C;
+  --color-thunderbird-800: #AF0505;
+  --color-thunderbird-400: #FF5959;
+  --color-thunderbird-300: #FF5959;
+  --color-thunderbird-200: #FFC1C1;
+
+  /* fonts */
+  --font-founders-grotesk: var(--font-founders-grotesk);
+  --font-coolvetica: var(--font-coolvetica);
+}
+
+@layer base {
+  h1 {
+    @apply text-3xl md:text-5xl font-semibold;
+  }
+  h2 {
+    @apply text-xl md:text-3xl font-semibold;
+  }
+  p {
+    @apply leading-relaxed text-gray-500;
+  }
+}
+
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-founders-grotesk), Helvetica, sans-serif;
+}
