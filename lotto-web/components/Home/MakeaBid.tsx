@@ -9,9 +9,49 @@ import { getNextDrawTime } from "../Reusable/GetTime";
 import { TIME_SLOT } from "@/Constants/Time";
 
 const MakeaBid = () => {
-  const [timeLeft, setTimeLeft] = useState("");
+  const [timeLeft, setTimeLeft] = useState<string>("");
+  const [selectedSlot, setSelectedSlot] = useState<number>(0);
+  const [winnerNumber, setWinnerNumber] = useState<string>("?");
   const currentMonth = new Date().toLocaleString('default', { month: 'long' });
   const currentDate = String(new Date().getDate()).padStart(2, '0');
+
+  // Find current active time slot based on current time
+  useEffect(() => {
+    const findCurrentSlot = () => {
+      const now = new Date();
+      const currentHour = now.getHours();
+      const currentMinute = now.getMinutes();
+      const currentMinutes = currentHour * 60 + currentMinute;
+
+      let activeSlot = 0;
+
+      for (let i = 0; i < TIME_SLOT.length; i++) {
+        const slotTime = TIME_SLOT[i].time;
+        const [time, period] = slotTime.split(' ');
+        let [hours, minutes] = time.split(':').map(Number);
+
+        // Convert to 24-hour format
+        if (period === 'PM' && hours !== 12) {
+          hours += 12;
+        } else if (period === 'AM' && hours === 12) {
+          hours = 0;
+        }
+
+        const slotMinutes = hours * 60 + minutes;
+
+        // If current time is past this slot, this could be active
+        if (currentMinutes >= slotMinutes) {
+          activeSlot = i;
+        }
+      }
+
+      setSelectedSlot(activeSlot);
+    };
+
+    findCurrentSlot();
+    const interval = setInterval(findCurrentSlot, 60000); // Update every minute
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const updateCountdown = () => {
@@ -32,6 +72,50 @@ const MakeaBid = () => {
     const interval = setInterval(updateCountdown, 1000);
     return () => clearInterval(interval);
   }, []);
+
+  // Check if selected time slot is in the past
+  useEffect(() => {
+    const checkTimeSlot = () => {
+      if (selectedSlot === null) return;
+
+      const now = new Date();
+      const currentHour = now.getHours();
+      const currentMinute = now.getMinutes();
+
+      const slotTime = TIME_SLOT[selectedSlot].time;
+      const [time, period] = slotTime.split(' ');
+      let [hours, minutes] = time.split(':').map(Number);
+
+      // Convert to 24-hour format
+      if (period === 'PM' && hours !== 12) {
+        hours += 12;
+      } else if (period === 'AM' && hours === 12) {
+        hours = 0;
+      }
+
+      const slotMinutes = hours * 60 + minutes;
+      const currentMinutes = currentHour * 60 + currentMinute;
+
+      // If slot time has passed, show random number (0-32)
+      if (currentMinutes > slotMinutes) {
+        // Generate consistent random number based on date and slot
+        const seed = new Date().getDate() * 1000 + selectedSlot;
+        const randomNum = seed % 33; // Ensures 0-32
+        setWinnerNumber(randomNum.toString().padStart(2, '0'));
+      } else {
+        // Future time - show question mark
+        setWinnerNumber("?");
+      }
+    };
+
+    checkTimeSlot();
+    const interval = setInterval(checkTimeSlot, 60000); // Check every minute
+    return () => clearInterval(interval);
+  }, [selectedSlot]);
+
+  const handleSlotClick = (index: number) => {
+    setSelectedSlot(index);
+  };
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
@@ -74,11 +158,15 @@ const MakeaBid = () => {
                 {TIME_SLOT.map((time, index) => (
                   <button
                     key={index}
+                    onClick={() => handleSlotClick(index)}
                     style={{
                       clipPath:
                         "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)",
                     }}
-                    className="text-sm sm:text-base md:text-lg lg:text-[20px] text-primary bg-white hover:bg-primary hover:text-white px-3 sm:px-4 md:px-5 lg:px-6 py-2 sm:py-2.5 md:py-3 font-regular transition-colors duration-300"
+                    className={`text-sm sm:text-base md:text-lg lg:text-[20px] px-3 sm:px-4 md:px-5 lg:px-6 py-2 sm:py-2.5 md:py-3 font-regular transition-colors duration-300 ${selectedSlot === index
+                        ? "bg-primary text-white"
+                        : "text-primary bg-white hover:bg-primary hover:text-white"
+                      }`}
                   >
                     {time.time}
                   </button>
@@ -105,10 +193,10 @@ const MakeaBid = () => {
             clipPath:
               "polygon(0 0, 100% 0, 100% 70%, calc(100% - 30px) 100%, 0 100%)",
           }}
-          className="relative flex flex-col w-full sm:w-72 md:w-80 h-auto min-h-[120px] sm:min-h-[130px] md:h-[136px] mt-5 p-4 sm:p-5 md:p-6 lg:p-7 border border-white/20 bg-white/10 backdrop-blur-xl shadow-lg"
+          className="relative flex flex-col w-full sm:w-72 md:w-[60%] h-auto min-h-[120px] sm:min-h-[130px] md:h-[14vh] bg-primary/10 backdrop-blur-xl shadow] mt-5 p-4 sm:p-5 md:px-6 lg:px-7 border border-white/20 bg-white/10 backdrop-blur-xl shadow-lg"
         >
           <h1 className="text-black text-2xl sm:text-3xl md:text-[36px] leading-tight">Winner</h1>
-          <span className="text-6xl sm:text-7xl md:text-8xl lg:text-[95px] text-[#FF5959] leading-none">?</span>
+          <span className="text-6xl sm:text-7xl md:text-8xl lg:text-[65px] text-[#FF5959] leading-none">{winnerNumber}</span>
         </div>
       </div>
     </div>

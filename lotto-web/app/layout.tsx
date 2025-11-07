@@ -5,6 +5,7 @@ import { ScrollProvider } from "@/providers/ScrollProvider";
 import { coolvetica, foundersGrotesk } from "@/fonts";
 import Navbar from "@/components/Navigation/Navbar";
 import Footer from "@/components/Navigation/Footer";
+import LayoutWrapper from "@/components/Navigation/LayoutWrapper";
 
 export const metadata: Metadata = {
   title: "32 Win — Play & Win the 2D Lotto Game",
@@ -62,11 +63,7 @@ export default function RootLayout({
       <body
         className={`${foundersGrotesk.variable} ${coolvetica.variable} antialiased`}
       >
-        <ScrollProvider>
-          <Navbar />
-          {children}
-          <Footer />
-          </ScrollProvider>
+      <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );

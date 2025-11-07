@@ -1,7 +1,7 @@
 import { JACKPOT_CONTENTS } from "@/components/Data/JackpontContent";
 import Hero from "@/components/Home/Hero";
-import JackpotCards from "@/components/Home/Jackpot";
-import Jackpot from "@/components/Home/Jackpot";
+import JackpotCards from "@/components/Home/JackpotCards";
+import Jackpot from "@/components/Home/JackpotCards";
 import MakeaBid from "@/components/Home/MakeaBid";
 import Participate from "@/components/Home/Participate";
 import Work from "@/components/Home/Work";

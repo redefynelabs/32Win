@@ -1,6 +1,6 @@
 import { HERO_CONTENTS } from "../Data/HeroContent"
 import MakeBidButton from "../Reusable/Button"
-import JackpotCards from "./Jackpot"
+import JackpotCards from "./JackpotCards"
 
 
 const Hero = () => {

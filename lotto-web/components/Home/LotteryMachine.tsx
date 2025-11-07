@@ -29,16 +29,16 @@ export function LotteryMachine() {
 
   return (
     <Center>
-  <primitive
-    ref={group}
-    object={scene}
-    scale={0.03} 
-    rotation={[0, 0, 0]}
-    position={[0, -0.2, 0]} 
-    castShadow
-    receiveShadow
-  />
-</Center>
+      <primitive
+        ref={group}
+        object={scene}
+        scale={0.03}
+        rotation={[0, 0, 0]}
+        position={[0, -0.2, 0]}
+        castShadow
+        receiveShadow
+      />
+    </Center>
 
   );
 }

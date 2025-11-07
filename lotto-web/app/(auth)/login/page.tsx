@@ -110,21 +110,21 @@ const Page = () => {
 
   return (
     <ContainerLayout>
-      <div className="min-h-screen flex flex-col lg:flex-row items-center justify-center ">
+      <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16 py-10">
         {/* Left Side - Poster Image */}
-        <div className="flex justify-center items-center lg:mr-8 xl:mr-12 mb-8 lg:mb-0">
+        <div className="flex justify-center items-center w-full lg:w-auto">
           <Image
             src={Poster}
             alt="Login Poster"
-            width={500}
+            width={420}
             height={500}
-            className="rounded-2xl shadow-md object-cover max-w-full md:h-auto h-[37vh]"
+            className="rounded-2xl shadow-md object-cover max-w-[350px] sm:max-w-[400px] lg:max-w-[420px] h-auto"
             priority
           />
         </div>
 
         {/* Right Side - Login Form */}
-        <div className="flex flex-col items-start justify-center bg-white rounded-2xl  w-full max-w-md ">
+        <div className="flex flex-col items-start justify-center rounded-2xl w-full max-w-md p-6 sm:p-8">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
             Login
           </h1>
@@ -171,13 +171,12 @@ const Page = () => {
               >
                 {isSubmitting ? "Logging in..." : "Login"}
               </button>
-
             </div>
           </form>
         </div>
       </div>
-
     </ContainerLayout>
+
 
   );
 };

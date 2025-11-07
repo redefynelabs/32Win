@@ -1,7 +1,9 @@
 "use client";
 
 import { Poster } from "@/components/Reusable/Images";
+import { DatePicker } from "@/components/ui/datePicker";
 import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
 import ContainerLayout from "@/layout/ContainerLayout";
 import Image from "next/image";
 import { useState, FormEvent } from "react";
@@ -171,6 +173,7 @@ const Page = () => {
       });
 
       alert("Form submitted successfully! Check console for details.");
+      
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {
@@ -213,19 +216,20 @@ const Page = () => {
 
   return (
     <ContainerLayout>
-      <div className="min-h-screen flex flex-col lg:flex-row items-center justify-center ">
+      <div className=" flex flex-col lg:flex-row items-center justify-center py-10 ">
         <div className="flex justify-center items-center lg:mr-8 xl:mr-12 mb-8 lg:mb-0 md:pt-0 pt-20">
           <Image
             src={Poster}
             alt="Sign up Poster"
-            width={500}
+            width={420}
             height={500}
-            className="rounded-2xl shadow-md object-cover max-w-full md:h-auto h-[37vh]"
+            className="rounded-2xl shadow-md object-cover max-w-[350px] sm:max-w-[400px] lg:max-w-[420px] h-auto"
+
             priority
           />
         </div>
 
-        <div className="flex flex-col items-start justify-center bg-white rounded-2xl  w-full max-w-md">
+        <div className="flex flex-col items-start justify-centerrounded-2xl  w-full max-w-md">
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
             Agent Signup
           </h1>
@@ -284,29 +288,26 @@ const Page = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Gender
-                  </label>
-                  <select
+                  <Select
                     name="gender"
                     value={formData.gender}
                     onChange={handleChange}
-                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary ${errors.gender ? "border-red-500" : "border-gray-300"
-                      }`}
+                    label="Gender"
+                    className={errors.gender ? "border-red-500" : ""}
+                    aria-invalid={!!errors.gender}
                   >
                     <option value="">Select Gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="other">Other</option>
-                  </select>
+                  </Select>
                   {errors.gender && (
                     <p className="text-red-500 text-xs mt-1">{errors.gender}</p>
                   )}
                 </div>
 
                 <div>
-                  <Input
-                    type="date"
+                  <DatePicker
                     name="dob"
                     label="Date of Birth"
                     placeholder=""

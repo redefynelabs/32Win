@@ -117,59 +117,64 @@ const Page = () => {
               </div>
             </div>
             <div className="bg-primary p-8 overflow-y-auto mt-2 shadow-lg rounded-md h-[400px] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-primary/30 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-white/60 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-white/80">
-              {date ? (
-                (() => {
-                  const selectedDateStr = date
-                    .toLocaleDateString("en-GB", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
-                    })
-                    .replace(",", "");
-                  const selectedData = winners_data.find(
-                    (item) => item.date === selectedDateStr
-                  );
+              {(() => {
+                const selectedDateStr = date
+                  ? date
+                      .toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })
+                      .replace(",", "")
+                  : null;
 
-                  return selectedData ? (
-                    <div className="flex flex-col gap-6">
-                      {sessions.map((session, index) => {
-                        const slot = selectedData.slots.find(
-                          (s) => s.session === session
-                        );
-                        return (
-                          <div
-                            key={index}
-                            className="flex flex-row items-center justify-between w-full border-b py-2 "
-                          >
-                            {/* Left side - Date and Session */}
-                            <div className="flex flex-col items-start">
-                              <span className="text-white text-lg font-semibold">
-                                {selectedDateStr}
-                              </span>
-                              <span className="text-white/80 text-lg">
-                                {session}
-                              </span>
-                            </div>
+                // Sort data: selected date first, then all others in reverse chronological order
+                const sortedData = [...winners_data].sort((a, b) => {
+                  if (selectedDateStr) {
+                    if (a.date === selectedDateStr) return -1;
+                    if (b.date === selectedDateStr) return 1;
+                  }
+                  // Parse dates for comparison
+                  const dateA = new Date(a.date);
+                  const dateB = new Date(b.date);
+                  return dateB.getTime() - dateA.getTime();
+                });
 
-                            {/* Right side - Bid Number */}
-                            <div className="bg-white rounded-full shadow-md border-2 border-primary w-12 h-12 flex items-center justify-center text-primary font-bold text-xl hover:scale-105 transition-transform">
-                              {slot?.bid_number ? slot.bid_number : "?"}
+                return (
+                  <div className="flex flex-col gap-6">
+                    {sortedData.map((dataItem, dataIndex) => (
+                      <div key={dataIndex} className="flex flex-col gap-4">
+                        {sessions.map((session, sessionIndex) => {
+                          const slot = dataItem.slots.find(
+                            (s) => s.session === session
+                          );
+                          return (
+                            <div
+                              key={sessionIndex}
+                              className="flex flex-row items-center justify-between w-full border-b py-2"
+                            >
+                              {/* Left side - Date and Session */}
+                              <div className="flex flex-col items-start">
+                                <span className="text-white text-lg font-semibold">
+                                  {dataItem.date}
+                                </span>
+                                <span className="text-white/80 text-lg">
+                                  {session}
+                                </span>
+                              </div>
+
+                              {/* Right side - Bid Number */}
+                              <div className="bg-white rounded-full shadow-md border-2 border-primary w-12 h-12 flex items-center justify-center text-primary font-bold text-xl hover:scale-105 transition-transform">
+                                {slot?.bid_number ? slot.bid_number : "?"}
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <p className="text-white text-center">
-                      No results found for {selectedDateStr}
-                    </p>
-                  );
-                })()
-              ) : (
-                <p className="text-white text-center">
-                  Please select a date to view results
-                </p>
-              )}
+                          );
+                        })}
+                      </div>
+                    ))}
+                  </div>
+                );
+              })()}
             </div>
           </>
         ) : (
@@ -230,55 +235,69 @@ const Page = () => {
               </div>
             </div>
             <div className="bg-primary p-8 overflow-y-auto mt-2 shadow-lg rounded-md h-[400px] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-primary/30 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-white/60 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:hover:bg-white/80">
-              {dateJackpot ? (
-                (() => {
-                  const selectedDateStr = dateJackpot
-                    .toLocaleDateString("en-GB", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
-                    })
-                    .replace(",", "");
-                  const selectedJackpotData = JACKOPT_WINNER.find(
-                    (item) => item.date === selectedDateStr
-                  );
+              {(() => {
+                const selectedDateStr = dateJackpot
+                  ? dateJackpot
+                      .toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })
+                      .replace(",", "")
+                  : null;
 
-                  return selectedJackpotData ? (
-                    <div className="flex flex-col gap-6">
-                      {selectedJackpotData?.slots?.length > 0 ? (
-                        selectedJackpotData.slots.map((slot, index) => (
-                          <div
-                            key={index}
-                            className="flex flex-row items-center justify-between w-full border-b py-2"
-                          >
-                            {/* Left side - Date and Position */}
+                // Sort data: selected date first, then all others in reverse chronological order
+                const sortedJackpotData = [...JACKOPT_WINNER].sort((a, b) => {
+                  if (selectedDateStr) {
+                    if (a.date === selectedDateStr) return -1;
+                    if (b.date === selectedDateStr) return 1;
+                  }
+                  // Parse dates for comparison
+                  const dateA = new Date(a.date);
+                  const dateB = new Date(b.date);
+                  return dateB.getTime() - dateA.getTime();
+                });
+
+                return (
+                  <div className="flex flex-col gap-6">
+                    {sortedJackpotData.map((dataItem, dataIndex) => (
+                      <div key={dataIndex} className="flex flex-col gap-4">
+                        {dataItem?.slots?.length > 0 ? (
+                          <div className="flex flex-row items-center justify-between w-full border-b py-2">
+                            {/* Left side - Date */}
                             <div className="flex flex-col items-start">
                               <span className="text-white text-lg font-semibold">
-                                {selectedDateStr}
+                                {dataItem.date}
                               </span>
                             </div>
 
-                            {/* Right side - Bid Number */}
-                            <div className="bg-white rounded-full shadow-md border-2 border-primary w-12 h-12 flex items-center justify-center text-primary font-bold text-xl hover:scale-105 transition-transform">
-                              {slot?.bid_number ?? "?"}
+                            {/* Right side - All 6 numbers in a row */}
+                            <div className="flex flex-row gap-2">
+                              {dataItem.slots.map((slot, slotIndex) => (
+                                <div
+                                  key={slotIndex}
+                                  className="bg-white rounded-full shadow-md border-2 border-primary w-12 h-12 flex items-center justify-center text-primary font-bold text-xl hover:scale-105 transition-transform"
+                                >
+                                  {slot?.bid_number ?? "?"}
+                                </div>
+                              ))}
                             </div>
                           </div>
-                        ))
-                      ) : (
-                        <p className="text-white">No slots available</p>
-                      )}
-                    </div>
-                  ) : (
-                    <p className="text-white text-center">
-                      No results found for {selectedDateStr}
-                    </p>
-                  );
-                })()
-              ) : (
-                <p className="text-white text-center">
-                  Please select a date to view results
-                </p>
-              )}
+                        ) : (
+                          <div className="flex flex-row items-center justify-between w-full border-b py-2">
+                            <div className="flex flex-col items-start">
+                              <span className="text-white text-lg font-semibold">
+                                {dataItem.date}
+                              </span>
+                            </div>
+                            <span className="text-white/80">No results</span>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                );
+              })()}
             </div>
           </>
         )}
