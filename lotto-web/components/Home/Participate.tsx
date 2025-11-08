@@ -4,8 +4,8 @@ import { GoldenBalls, Sparkles } from "../Reusable/Images";
 
 const Participate = () => {
   return (
-    <div className="relative w-full md:my-20">
-      <div className="relative w-full bg-primary rounded-[23px] flex flex-col md:flex-row items-start justify-between p-3 md:p-0 md:pl-8 py-4  overflow-hidden">
+    <div className="relative w-full lg:my-20">
+      <div className="relative w-full bg-primary rounded-[23px] flex flex-col md:flex-row items-start justify-between p-3 md:p-0 md:pl-8 xl:py-4 md:py-10  overflow-hidden">
         {/* Text section */}
         <div className="flex flex-col text-center md:text-left max-w-md z-10">
           <h1 className="text-white text-[32px] sm:text-[40px] md:text-[50px] mb-3">

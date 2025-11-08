@@ -118,9 +118,9 @@ const MakeaBid = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row">
+    <div className="min-h-screen flex flex-col lg:flex-row">
       {/* 3D model area */}
-      <div className="w-full md:w-[40%] h-[40vh] md:h-screen flex items-center justify-center">
+      <div className="w-full lg:w-[40%] h-[40vh] md:h-screen flex items-center justify-center">
         <Canvas
           shadows
           camera={{ position: [0, 0, 3], fov: 25 }}
@@ -135,7 +135,7 @@ const MakeaBid = () => {
 
       {/* Text/content area */}
       <div
-        className="w-full md:w-[60%] flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-12 py-6 md:py-0 bg-cover bg-center bg-no-repeat"
+        className="w-full lg:w-[60%] flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-12 py-6 md:py-0 xl:py-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${BgShapes.src})` }}
       >
         <div className="relative p-4 sm:p-5 md:p-6 lg:p-7 w-full border border-white/20 bg-white/10 backdrop-blur-xl shadow-lg">

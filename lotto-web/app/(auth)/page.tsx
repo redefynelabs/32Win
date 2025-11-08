@@ -6,8 +6,10 @@ import Image from "next/image";
 import { useState, FormEvent } from "react";
 import bcrypt from "bcryptjs";
 import ContainerLayout from "@/layout/ContainerLayout";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -70,7 +72,17 @@ const Page = () => {
       });
 
       // Reset form after successful submission
-      resetForm();
+      setFormData({
+        username: "",
+        password: "",
+      });
+      setErrors({
+        username: "",
+        password: "",
+      });
+
+      // Redirect to home page
+      router.push("/");
     } catch (error) {
       console.error("Error hashing password:", error);
       setErrors({
@@ -80,17 +92,6 @@ const Page = () => {
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const resetForm = () => {
-    setFormData({
-      username: "",
-      password: "",
-    });
-    setErrors({
-      username: "",
-      password: "",
-    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -176,8 +177,6 @@ const Page = () => {
         </div>
       </div>
     </ContainerLayout>
-
-
   );
 };
 

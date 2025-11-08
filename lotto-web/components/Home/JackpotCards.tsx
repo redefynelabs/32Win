@@ -42,7 +42,7 @@ const JackpotCards: React.FC<JackpotCardsProps> = ({
     },
     floating: {
       container: 'flex-col relative overflow-visible sm:col-span-2 md:col-span-1',
-      imageWrapper: 'absolute -top-5 sm:-top-24 left-1/2 transform -translate-x-1/2 w-[280px] sm:w-[380px] h-[200px] sm:h-[280px] pointer-events-none',
+      imageWrapper: 'absolute -top-5 xl:-top-24 lg:-top-10 md:-top-13 left-1/2 transform -translate-x-1/2 w-[280px] sm:w-[380px] h-[200px] sm:h-[280px] pointer-events-none',
       imageClass: 'w-full h-full object-contain',
       contentWrapper: 'flex flex-col justify-end flex-1 p-4 sm:p-6 text-center mt-auto',
     },
@@ -54,7 +54,7 @@ const JackpotCards: React.FC<JackpotCardsProps> = ({
         {title} <span className="text-primary">{highlightText}</span>
       </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 px-4 md:px-0">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-5 px-4 md:px-0">
         {contents.map((content) => {
           const { title, desc, img, bgColor, variant } = content
           const isLight = bgColor === '#FFFFFF'
