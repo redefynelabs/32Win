@@ -111,7 +111,7 @@ const Page = () => {
 
   return (
     <ContainerLayout>
-      <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16 py-10">
+      <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16 py-10 b">
         {/* Left Side - Poster Image */}
         <div className="flex justify-center items-center w-full lg:w-auto">
           <Image

@@ -6,7 +6,7 @@ import { BgShapes } from "../Reusable/Images";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getNextDrawTime } from "../Reusable/GetTime";
-import { TIME_SLOT } from "@/Constants/Time";
+import { TIME_SLOT } from "@/constants/Time";
 
 const MakeaBid = () => {
   const [timeLeft, setTimeLeft] = useState<string>("");
@@ -159,11 +159,11 @@ const MakeaBid = () => {
                   <button
                     key={index}
                     onClick={() => handleSlotClick(index)}
-                    style={{
-                      clipPath:
-                        "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)",
-                    }}
-                    className={`text-sm sm:text-base md:text-lg lg:text-[20px] px-3 sm:px-4 md:px-5 lg:px-6 py-2 sm:py-2.5 md:py-3 font-regular transition-colors duration-300 ${selectedSlot === index
+                    // style={{
+                    //   clipPath:
+                    //     "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)",
+                    // }}
+                    className={`text-sm rounded-full sm:text-base md:text-lg lg:text-[20px] px-3 sm:px-4 md:px-5 lg:px-6 py-2 sm:py-2.5 md:py-3 font-regular transition-colors duration-300 ${selectedSlot === index
                         ? "bg-primary text-white"
                         : "text-primary bg-white hover:bg-primary hover:text-white"
                       }`}
@@ -176,11 +176,11 @@ const MakeaBid = () => {
               {/* Full-width Button */}
               <Link
                 href="/login"
-                style={{
-                  clipPath:
-                    "polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)",
-                }}
-                className="block w-full text-center bg-primary text-white text-base sm:text-lg md:text-xl lg:text-[21px] font-regular py-2.5 sm:py-3 hover:bg-thunderbird-800 transition-colors duration-300"
+                // style={{
+                //   clipPath:
+                //     "polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)",
+                // }}
+                className="block w-full text-center bg-primary text-white text-base sm:text-lg md:text-xl lg:text-[21px] rounded-full font-regular py-2.5 sm:py-3 hover:bg-thunderbird-800 transition-colors duration-300"
               >
                 Make a Bid
               </Link>

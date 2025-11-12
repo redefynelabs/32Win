@@ -17,7 +17,7 @@ import {
 import { ChevronDown, Trash2, Pencil } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { TIME_SLOT } from "@/Constants/Time"
+import { TIME_SLOT } from "@/constants/Time"
 
 
 
@@ -385,13 +385,13 @@ const Page = () => {
                                     }}
                                 >
                                     <Button
-                                        style={{
-                                            clipPath: "polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%)",
-                                        }}
+                                        // style={{
+                                        //     clipPath: "polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%)",
+                                        // }}
                                         variant="outline"
                                         onClick={() => !disabled && setSelectedTime(slot.time)}
                                         disabled={disabled}
-                                        className={`justify-center text-primary font-regular text-base md:text-lg py-5 px-4 md:px-6 rounded-none transition-colors border-none select-none
+                                        className={`justify-center rounded-full text-primary font-regular text-base md:text-lg py-5 px-4 md:px-6  transition-colors border-none select-none
                                             ${disabled
                                                 ? "bg-gray-300 text-gray-500 cursor-not-allowed opacity-50"
                                                 : selectedTime === slot.time
@@ -550,20 +550,20 @@ const Page = () => {
                     <button
                         onClick={() => filteredBids.length > 0 && setConfirmDialog({ open: true, type: 'clear' })}
                         disabled={filteredBids.length === 0}
-                        style={{
-                            clipPath: "polygon(0 0, 100% 0, 100% 100%, 20px 100%, 0 calc(100% - 20px))",
-                        }}
-                        className="bg-white text-primary flex flex-row items-center gap-2 px-4 md:px-5 py-2 text-sm md:text-base hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        // style={{
+                        //     clipPath: "polygon(0 0, 100% 0, 100% 100%, 20px 100%, 0 calc(100% - 20px))",
+                        // }}
+                        className="bg-white rounded-full text-primary flex flex-row items-center gap-2 px-4 md:px-5 py-2 text-sm md:text-base hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         Clear all <Trash2 className="w-4 h-4 md:w-5 md:h-5" />
                     </button>
                     <button
                         onClick={() => filteredBids.length > 0 && setConfirmDialog({ open: true, type: 'submit' })}
                         disabled={filteredBids.length === 0}
-                        style={{
-                            clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%)",
-                        }}
-                        className="bg-primary text-white px-4 md:px-5 py-2 text-sm md:text-base hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        // style={{
+                        //     clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%)",
+                        // }}
+                        className="bg-primary rounded-full text-white px-4 md:px-5 py-2 text-sm md:text-base hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         Confirm Bid
                     </button>

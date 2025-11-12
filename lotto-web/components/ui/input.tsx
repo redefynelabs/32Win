@@ -1,14 +1,21 @@
+"use client"
+
 import * as React from "react"
 import { cn } from "@/lib/utils"
+import { usePathname } from "next/navigation"
 
 interface InputProps extends React.ComponentProps<"input"> {
   label?: string
 }
 
-function Input({ className, type, label, placeholder, ...props }: InputProps) {
+export function Input({ className, type, label, placeholder, ...props }: InputProps) {
   const [isFocused, setIsFocused] = React.useState(false)
   const [hasValue, setHasValue] = React.useState(false)
   const inputRef = React.useRef<HTMLInputElement>(null)
+  const pathname = usePathname()
+
+  // ✅ Determine if current page is /bid (or /bid/anything)
+  const isBidPage = pathname.startsWith("/bid")
 
   React.useEffect(() => {
     if (inputRef.current) {
@@ -41,7 +48,9 @@ function Input({ className, type, label, placeholder, ...props }: InputProps) {
         data-slot="input"
         className={cn(
           "file:text-foreground selection:bg-primary selection:text-primary-foreground border-input h-14 w-full min-w-0 rounded-[4px] border bg-transparent px-4 py-2 text-base transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-normal disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-          label ? "placeholder:text-[14px] placeholder:text-muted-foreground/60" : "placeholder:text-muted-foreground",
+          label
+            ? "placeholder:text-[14px] placeholder:text-muted-foreground/60"
+            : "placeholder:text-muted-foreground",
           "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
           className
         )}
@@ -51,10 +60,12 @@ function Input({ className, type, label, placeholder, ...props }: InputProps) {
         onChange={handleChange}
         {...props}
       />
+
       {label && (
         <label
           className={cn(
-            "text-muted-foreground pointer-events-none absolute left-2 top-1 -translate-y-1/2 bg-background px-1 text-lg font-regular"
+            "text-muted-foreground pointer-events-none absolute left-2 top-0.5 -translate-y-1/2 px-1 text-lg font-regular transition-colors",
+            isBidPage ? "bg-white" : "bg-background" // ✅ White on /bid page
           )}
         >
           {label}
@@ -63,5 +74,3 @@ function Input({ className, type, label, placeholder, ...props }: InputProps) {
     </div>
   )
 }
-
-export { Input }

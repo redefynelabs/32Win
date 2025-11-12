@@ -1,4 +1,4 @@
-import { TIME_SLOT } from "@/Constants/Time";
+import { TIME_SLOT } from "@/constants/Time";
 
 export function getNextDrawTime() {
   const now = new Date();

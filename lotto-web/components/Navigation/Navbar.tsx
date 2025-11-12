@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
-import { NAV_ITEMS } from "../../Constants/Nav";
+import { NAV_ITEMS } from "../../constants/Nav";
 import CompanyLogo from "@/public/companyLogo.png";
 
 const Navbar = () => {
@@ -40,7 +40,7 @@ const Navbar = () => {
                 {/* Desktop Login Button */}
                 <div className="hidden md:block">
                     <Link
-                        href="/login"
+                        href="/sign-in"
                         className="bg-primary  text-white px-5 py-2  text-lg rounded-full hover:bg-primary/90 transition-all duration-200"
                     >
                         Login
@@ -71,7 +71,7 @@ const Navbar = () => {
                         </Link>
                     ))}
                     <Link
-                        href="/login"
+                        href="/sign-in"
                         className="bg-primary text-white w-[120px] text-center py-2 rounded-full hover:bg-primary/90 transition-all duration-200"
                         onClick={() => setIsOpen(false)}
                     >

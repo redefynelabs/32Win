@@ -14,8 +14,8 @@ export default function Home() {
       <Participate />
       <MakeaBid />
       <Work />
-    <JackpotCards   title="Want to Win" 
-  highlightText="Jackpot?" contents={JACKPOT_CONTENTS} />
+      <JackpotCards title="Want to Win"
+        highlightText="Jackpot?" contents={JACKPOT_CONTENTS} />
     </ContainerLayout>
   );
 }
