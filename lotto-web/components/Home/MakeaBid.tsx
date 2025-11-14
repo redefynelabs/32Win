@@ -163,7 +163,7 @@ const MakeaBid = () => {
                     //   clipPath:
                     //     "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)",
                     // }}
-                    className={`text-sm rounded-full sm:text-base md:text-lg lg:text-[20px] px-3 sm:px-4 md:px-5 lg:px-6 py-2 sm:py-2.5 md:py-3 font-regular transition-colors duration-300 ${selectedSlot === index
+                    className={`text-sm rounded-[8px] sm:text-base md:text-lg lg:text-[20px] px-3 sm:px-4 md:px-5 lg:px-6 py-2 sm:py-2.5 md:py-3 font-regular transition-colors duration-300 ${selectedSlot === index
                         ? "bg-primary text-white"
                         : "text-primary bg-white hover:bg-primary hover:text-white"
                       }`}
